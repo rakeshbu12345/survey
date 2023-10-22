@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Form</h1>
+        <form id="surveyForm">
+            <div>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" required>
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" required>
+            </div>
+            <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div>
+                <label for="country">Country:</label>
+                <select id="country" required>
+                    <option value="USA">United States</option>
+                    <option value="Canada">Canada</option>
+                    <!-- Add more countries here -->
+                </select>
+            </div>
+            <div>
+                <label>Gender:</label>
+                <label for="male">Male</label>
+                <input type="checkbox" id="male" name="gender">
+                <label for="female">Female</label>
+                <input type="checkbox" id="female" name="gender">
+            </div>
+            <div>
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div>
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" required>
+            </div>
+            <div>
+                <button type="button" id="submitBtn">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popup" style="display: none;">
+        <h2>Survey Form Submission</h2>
+        <ul id="popupContent"></ul>
+        <button id="closePopup">Close</button>
+    </div>
+
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function () {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const dob = document.getElementById("dob").value;
+            const country = document.getElementById("country").value;
+            const gender = Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(e => e.nextSibling.textContent).join(', ');
+            const profession = document.getElementById("profession").value;
+            const email = document.getElementById("email").value;
+            const mobile = document.getElementById("mobile").value;
+
+            const popupContent = document.getElementById("popupContent");
+            popupContent.innerHTML = `
+                <li>First Name: ${firstName}</li>
+                <li>Last Name: ${lastName}</li>
+                <li>Date of Birth: ${dob}</li>
+                <li>Country: ${country}</li>
+                <li>Gender: ${gender}</li>
+                <li>Profession: ${profession}</li>
+                <li>Email: ${email}</li>
+                <li>Mobile Number: ${mobile}</li>
+            `;
+
+            document.getElementById("popup").style.display = "block";
+        });
+
+        document.getElementById("closePopup").addEventListener("click", function () {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("surveyForm").reset();
+        });
+    </script>
+</body>
+</html>
